@@ -16,7 +16,6 @@ pipeline {
             git branch: 'main', url: 'https://github.com/darey-devops/php-todo.git'
       }
     }
-
     stage('Prepare Dependencies') {
       steps {
              sh 'mv .env.sample .env'
