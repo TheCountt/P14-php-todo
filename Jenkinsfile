@@ -58,8 +58,7 @@ pipeline {
             sh 'zip -qr ${WORKSPACE}/php-todo.zip ${WORKSPACE}/*'
       }
     }
-
-        stage('SonarQube Quality Gate') {
+    stage('SonarQube Quality Gate') {
         environment {
             scannerHome = tool 'SonarQubeScanner'
         }
@@ -70,7 +69,6 @@ pipeline {
 
         }
     }
-    
     stage ('Deploy Artifact') {
     steps {
             script { 
