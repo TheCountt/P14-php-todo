@@ -53,6 +53,22 @@ pipeline {
 
       }
     }
+
+    stage('SonarQube Quality Gate') {
+      when { branch pattern: "^develop*|^hotfix*|^release*|^main*", comparator: "REGEXP"}
+        environment {
+            scannerHome = tool 'SonarQubeScanner'
+        }
+        steps {
+            withSonarQubeEnv('sonarqube') {
+                sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
+            }
+            timeout(time: 1, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+    }
+
     stage ('Package Artifact') {
     steps {
             sh 'zip -qr ${WORKSPACE}/php-todo.zip ${WORKSPACE}/*'
@@ -79,17 +95,5 @@ pipeline {
     build job: 'config-mgt-ansible/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], propagate: false, wait: true
     }
    }
-
-   stage('SonarQube Quality Gate') {
-        environment {
-            scannerHome = tool 'SonarQubeScanner'
-        }
-        steps {
-            withSonarQubeEnv('sonarqube') {
-                sh '/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner'
-            }
-
-        }
-    }
   }
 }
