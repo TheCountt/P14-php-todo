@@ -96,7 +96,7 @@ pipeline {
             }
         }
         
-        stage ('Deploy to Dev Environment') {
+        stage ('Deploy to All Environment') {
             steps {
                 build job: 'config-mgt-ansible/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], propagate: false, wait: true
             }
