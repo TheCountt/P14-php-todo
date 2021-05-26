@@ -13,7 +13,7 @@ pipeline {
   
         stage('Checkout SCM') {
             steps {
-                git branch: 'main', url: 'https://github.com/TheCountt/php-todo.git'
+                git branch: 'main', url: 'https://github.com/TheCountt/P14-php-todo.git'
             }
         }
 
@@ -86,8 +86,8 @@ pipeline {
                     def server = Artifactory.server 'artifactory-server'
                     def uploadSpec = """{
                         "files": [{
-                            "pattern": "php-todo.zip",
-                            "target": "php-todo"
+                            "pattern": "P14-php-todo.zip",
+                            "target": "P14-php-todo"
                         }]
                         }"""
 
@@ -98,7 +98,7 @@ pipeline {
         
         stage ('Deploy to All Environment') {
             steps {
-                build job: 'config-mgt-ansible/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], propagate: false, wait: true
+                build job: 'config-mgt-ansible/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev', 'sit', 'uat']], propagate: false, wait: true
             }
         }
     }
