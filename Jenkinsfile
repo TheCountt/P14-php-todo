@@ -61,7 +61,7 @@ pipeline {
 
         stage ('Package Artifact') {
             steps {
-                sh 'zip -qr ${WORKSPACE}/php-todo.zip ${WORKSPACE}/*'
+                sh 'zip -qr ${WORKSPACE}/P14-php-todo.zip ${WORKSPACE}/*'
             }
         }
 
@@ -98,7 +98,7 @@ pipeline {
         
         stage ('Deploy to All Environment') {
             steps {
-                build job: 'config-mgt-ansible/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev', 'sit', 'uat']], propagate: false, wait: true
+                build job: 'Configuration-Ansible/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], propagate: false, wait: true
             }
         }
     }
