@@ -98,7 +98,7 @@ pipeline {
         
         stage ('Deploy to Dev Environment') {
             steps {
-                build job: 'config-mgt-ansible/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'sit']], propagate: false, wait: true
+                build job: 'config-mgt-ansible/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], propagate: false, wait: true
             }
         }
     }
