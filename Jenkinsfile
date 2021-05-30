@@ -13,7 +13,7 @@ pipeline {
   
         stage('Checkout SCM') {
             steps {
-                git branch: 'main', url: 'https://github.com/TheCountt/php-todo.git'
+                git branch: 'main', url: 'https://github.com/TheCountt/P14-php-todo.git'
             }
         }
 
@@ -61,7 +61,7 @@ pipeline {
 
         stage ('Package Artifact') {
             steps {
-                sh 'zip -qr ${WORKSPACE}/php-todo.zip ${WORKSPACE}/*'
+                sh 'zip -qr ${WORKSPACE}/P14-php-todo.zip ${WORKSPACE}/*'
             }
         }
 
@@ -86,8 +86,8 @@ pipeline {
                     def server = Artifactory.server 'artifactory-server'
                     def uploadSpec = """{
                         "files": [{
-                            "pattern": "php-todo.zip",
-                            "target": "php-todo"
+                            "pattern": "P14-php-todo.zip",
+                            "target": "P14-php-todo"
                         }]
                         }"""
 
