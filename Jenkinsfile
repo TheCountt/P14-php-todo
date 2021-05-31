@@ -98,7 +98,7 @@ pipeline {
         
         stage ('Deploy to All Environment') {
             steps {
-                build job: 'config-mgt-ansible/main', parameters: [[$class: 'StringParameterValue', name: 'inventory', value: 'dev']], propagate: false, wait: true
+                build job: 'config-mgt-ansible/main', parameters: [[$class: 'StringParameterValue', name: 'inventory', value: 'sit']], propagate: false, wait: true
             }
         }
     }
